@@ -1,0 +1,17 @@
+---
+- name: install zsh
+  sudo: yes
+  apt: pkg=zsh state=installed
+
+- name: change login shell to zsh
+  sudo: yes
+  command: usermod -s /usr/bin/zsh vagrant
+
+- name: install oh-my-zsh
+  git: repo=git://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh
+
+- name: copy zshrc
+  copy: src=~/.oh-my-zsh/templates/zshrc.zsh-template dest=~/.zshrc
+
+- name: set ZSH_THEME to ys
+  lineinfile: dest=~/.zshrc regexp="^ZSH_THEME" line='ZSH_THEME="ys"'
